@@ -90,8 +90,8 @@ void setup() {
   pinMode(RCLK, OUTPUT);
   pinMode(SRCLK, OUTPUT);
 
-  for (int i = 0; i < LED_COUNT; i++) {
-    leds[i].set_color_off();
+  for (auto& led : leds) {
+    led.set_color_off();
   }
 
   Serial.begin(9600);
@@ -164,13 +164,13 @@ ISR(TIMER0_COMPA_vect) {
   }
 
   if (timer == 0) {
-    for (int i = 0; i < LED_COUNT; i++) {
-      leds[i].on();
+    for (auto& led : leds) {
+      led.on();
     }
   } else {
     bool toggled = false;
-    for (int i = 0; i < LED_COUNT; i++) {
-      if (leds[i].maybe_toggle(timer)) {
+    for (auto& led : leds) {
+      if (led.maybe_toggle(timer)) {
         toggled = true;
       }
     }
